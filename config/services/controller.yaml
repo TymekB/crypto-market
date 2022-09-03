@@ -5,3 +5,11 @@ services:
             - '@twig'
         tags:
             - { name: controller.service_arguments }
+
+    app.controller.action.show_dashboard_action:
+        class: App\Controller\Action\ShowDashboardAction
+        arguments:
+            - '@twig'
+        tags:
+            - { name: controller.service_arguments }
+
