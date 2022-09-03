@@ -1,0 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap');
+
+@import "variables";
+@import "~bootstrap/scss/bootstrap";
+
+.navbar {
+    border-bottom: 1px solid $gray-200;
+}
+
+.nav-item {
+    margin-right: 1.2rem;
+}
+
+.primary-color {
+    color: $primary;
+}
+
+a.forgot-password {
+    color: $gray-700;
+    //font-weight: bold;
+    text-decoration: none;
+}
+
+a.forgot-password:hover {
+    text-decoration: underline;
+}

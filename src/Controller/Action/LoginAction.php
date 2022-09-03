@@ -13,8 +13,10 @@ final class LoginAction
     {
     }
 
-    public function __invoke()
+    public function __invoke(): Response
     {
-
+        return new Response(
+            $this->twig->render('login.html.twig')
+        );
     }
 }

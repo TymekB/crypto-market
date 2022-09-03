@@ -1,3 +1,7 @@
-controllers:
-    resource: ../src/Controller/
-    type: attribute
+#controllers:
+#    resource: ../src/Controller/
+#    type: attribute
+#
+login:
+    path: /
+    controller: app.controller.action.login_action
