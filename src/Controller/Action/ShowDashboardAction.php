@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controller\Action;
 
+use Symfony\Component\HttpFoundation\Response;
 use Twig\Environment;
 
 final class ShowDashboardAction
@@ -13,9 +14,9 @@ final class ShowDashboardAction
     }
 
 
-    public function __invoke()
+    public function __invoke(): Response
     {
-
+        return new Response($this->twig->render('dashboard.html.twig'));
     }
 
 }

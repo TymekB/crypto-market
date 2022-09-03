@@ -5,3 +5,7 @@
 login:
     path: /
     controller: app.controller.action.login_action
+
+dashboard:
+    path: /dashboard
+    controller: app.controller.action.show_dashboard_action
