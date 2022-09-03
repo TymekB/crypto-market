@@ -1,0 +1,7 @@
+services:
+    app.controller.action.login_action:
+        class: App\Controller\Action\LoginAction
+        arguments:
+            - '@twig'
+        tags:
+            - { name: controller.service_arguments }
