@@ -3,6 +3,7 @@ services:
         class: App\Controller\Action\LoginAction
         arguments:
             - '@twig'
+            - '@Symfony\Component\Security\Http\Authentication\AuthenticationUtils'
         tags:
             - { name: controller.service_arguments }
 

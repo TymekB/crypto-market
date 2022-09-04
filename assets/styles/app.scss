@@ -1,9 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap');
-
 @import "variables";
 @import "~bootstrap/scss/bootstrap";
 
 .navbar {
+    background: $white;
     border-bottom: 1px solid $gray-200;
 }
 
@@ -23,4 +23,8 @@ a.forgot-password {
 
 a.forgot-password:hover {
     text-decoration: underline;
+}
+
+.remember-me {
+    padding-top: 0.41rem;
 }
