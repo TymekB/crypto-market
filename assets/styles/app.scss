@@ -15,6 +15,10 @@
     color: $primary;
 }
 
+.danger-color {
+    color: $danger;
+}
+
 a.forgot-password {
     color: $gray-700;
     //font-weight: bold;
@@ -27,4 +31,29 @@ a.forgot-password:hover {
 
 .remember-me {
     padding-top: 0.41rem;
+}
+
+.table {
+    border: 1px solid #d2d2d2;
+}
+
+.table th {
+    font-weight: 400;
+    color: $gray-600;
+    font-size: 0.9rem;
+}
+
+.table > thead > tr > th {
+    line-height: 30px;
+}
+
+.table tr, td {
+    line-height: 50px;
+    padding-left: 10px;
+    font-weight: 500;
+    font-size: 1.05rem;
+}
+
+.table > tbody > tr > th {
+    text-align: center;
 }
