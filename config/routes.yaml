@@ -6,6 +6,11 @@ login:
     path: /
     controller: app.controller.action.login_action
 
+logout:
+    path: /logout
+    methods: GET
+
 dashboard:
     path: /dashboard
     controller: app.controller.action.show_dashboard_action
+
