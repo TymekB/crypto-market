@@ -1,0 +1,5 @@
+services:
+    app.command_handler.create_user_command_handler:
+        class: App\Command\CreateUserCommandHandler
+        tags:
+            - { name: messenger.message_handler }
