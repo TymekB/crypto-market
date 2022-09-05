@@ -4,6 +4,8 @@ services:
         arguments:
             - '@twig'
             - '@Symfony\Component\Security\Http\Authentication\AuthenticationUtils'
+            - '@security.authorization_checker'
+            - '@router'
         tags:
             - { name: controller.service_arguments }
 

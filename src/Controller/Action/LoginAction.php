@@ -4,18 +4,30 @@ declare(strict_types=1);
 
 namespace App\Controller\Action;
 
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Symfony\Component\Security\Http\Util\TargetPathTrait;
 use Twig\Environment;
 
 final class LoginAction
 {
-    public function __construct(private Environment $twig, private AuthenticationUtils $authenticationUtils)
-    {
-    }
+    public function __construct(
+        private Environment $twig,
+        private AuthenticationUtils $authenticationUtils,
+        private AuthorizationCheckerInterface $authorizationChecker,
+        private RouterInterface $router
+    ) {}
 
-    public function __invoke(): Response
+    public function __invoke(Request $request): Response
     {
+        if($this->authorizationChecker->isGranted('IS_AUTHENTICATED_FULLY')) {
+            return new RedirectResponse($this->router->generate('dashboard'));
+        }
+
         $lastUsername = $this->authenticationUtils->getLastUsername();
         $error = $this->authenticationUtils->getLastAuthenticationError();
 
