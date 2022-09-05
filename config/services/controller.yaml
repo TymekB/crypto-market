@@ -20,5 +20,6 @@ services:
         class: App\Controller\Action\RegisterUserAction
         arguments:
             - '@twig'
+            - '@form.factory'
         tags:
             - { name: controller.service_arguments }
