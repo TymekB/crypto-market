@@ -15,10 +15,10 @@ use Twig\Environment;
 final class LoginAction
 {
     public function __construct(
-        private Environment $twig,
-        private AuthenticationUtils $authenticationUtils,
-        private AuthorizationCheckerInterface $authorizationChecker,
-        private RouterInterface $router
+        private readonly Environment $twig,
+        private readonly AuthenticationUtils $authenticationUtils,
+        private readonly AuthorizationCheckerInterface $authorizationChecker,
+        private readonly RouterInterface $router
     ) {}
 
     public function __invoke(Request $request): Response

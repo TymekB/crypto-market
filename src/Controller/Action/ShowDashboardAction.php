@@ -9,9 +9,9 @@ use Twig\Environment;
 
 final class ShowDashboardAction
 {
-    public function __construct(private Environment $twig)
-    {
-    }
+    public function __construct(
+        private readonly Environment $twig
+    ) {}
 
 
     public function __invoke(): Response
