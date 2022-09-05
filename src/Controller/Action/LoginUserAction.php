@@ -12,7 +12,7 @@ use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Twig\Environment;
 
-final class LoginAction
+final class LoginUserAction
 {
     public function __construct(
         private readonly Environment $twig,

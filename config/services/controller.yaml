@@ -1,6 +1,6 @@
 services:
-    app.controller.action.login_action:
-        class: App\Controller\Action\LoginAction
+    app.controller.action.login_user_action:
+        class: App\Controller\Action\LoginUserAction
         arguments:
             - '@twig'
             - '@Symfony\Component\Security\Http\Authentication\AuthenticationUtils'
@@ -16,3 +16,9 @@ services:
         tags:
             - { name: controller.service_arguments }
 
+    app.controller.action.register_user_action:
+        class: App\Controller\Action\RegisterUserAction
+        arguments:
+            - '@twig'
+        tags:
+            - { name: controller.service_arguments }

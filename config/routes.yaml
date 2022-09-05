@@ -4,11 +4,15 @@
 #
 login:
     path: /
-    controller: app.controller.action.login_action
+    controller: app.controller.action.login_user_action
 
 logout:
     path: /logout
     methods: GET
+
+register:
+    path: /register
+    controller: app.controller.action.register_user_action
 
 dashboard:
     path: /dashboard
