@@ -21,5 +21,6 @@ services:
         arguments:
             - '@twig'
             - '@form.factory'
+            - '@messenger.default_bus'
         tags:
             - { name: controller.service_arguments }
