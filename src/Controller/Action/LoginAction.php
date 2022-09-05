@@ -23,7 +23,7 @@ final class LoginAction
 
     public function __invoke(Request $request): Response
     {
-        if($this->authorizationChecker->isGranted('IS_AUTHENTICATED_FULLY')) {
+        if($this->authorizationChecker->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
             return new RedirectResponse($this->router->generate('dashboard'));
         }
 
