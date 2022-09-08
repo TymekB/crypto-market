@@ -1,0 +1,4 @@
+App\Dto\UserDto:
+    properties:
+        email:
+            - Email: ~
