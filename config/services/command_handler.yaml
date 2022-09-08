@@ -1,5 +1,8 @@
 services:
     app.command_handler.create_user_command_handler:
         class: App\Command\CreateUserCommandHandler
+        arguments:
+            - '@doctrine.orm.entity_manager'
+            - '@security.user_password_hasher'
         tags:
             - { name: messenger.message_handler }
