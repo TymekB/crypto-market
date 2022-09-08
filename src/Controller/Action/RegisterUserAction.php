@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace App\Controller\Action;
 
 use App\Command\CreateUserCommand;
+use App\Dto\UserDto;
 use App\Form\Type\RegistrationFormType;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Routing\RouterInterface;
@@ -26,13 +26,15 @@ final class RegisterUserAction
 
     public function __invoke(Request $request)
     {
-        $form = $this->formFactory->create(RegistrationFormType::class);
+        $userDto = new UserDto();
+
+        $form = $this->formFactory->create(RegistrationFormType::class, $userDto);
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {
             $createUserCommand = new CreateUserCommand(
-                $form->get('email')->getData(),
-                $form->get('password')->getData()
+                $userDto->getEmail(),
+                $userDto->getPassword()
             );
 
             $this->messageBus->dispatch($createUserCommand);
