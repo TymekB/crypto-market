@@ -22,7 +22,7 @@ final class RegisterUserAction
         private readonly FormFactoryInterface $formFactory,
         private readonly MessageBusInterface  $messageBus,
         private readonly RouterInterface      $router
-    ) {}
+    ){}
 
     public function __invoke(Request $request)
     {
@@ -32,12 +32,7 @@ final class RegisterUserAction
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $createUserCommand = new CreateUserCommand(
-                $userDto->getEmail(),
-                $userDto->getPassword()
-            );
-
-            $this->messageBus->dispatch($createUserCommand);
+            $this->messageBus->dispatch(CreateUserCommand::fromDto($userDto));
 
             $request->getSession()
                 ->getFlashBag()
