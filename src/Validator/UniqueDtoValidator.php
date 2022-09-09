@@ -14,9 +14,9 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 final class UniqueDtoValidator extends ConstraintValidator
 {
     public function __construct(
-        private readonly EntityManagerInterface    $em,
-        private readonly PropertyAccessorInterface $accessor
-    ) {}
+        private readonly EntityManagerInterface    $entityManager,
+        private readonly PropertyAccessorInterface $propertyAccessor
+    ){}
 
     public function validate($value, Constraint $constraint): void
     {
@@ -28,13 +28,13 @@ final class UniqueDtoValidator extends ConstraintValidator
             throw new InvalidArgumentException('Entity class is required.');
         }
 
-        $repository = $this->em->getRepository($constraint->entityClass);
+        $repository = $this->entityManager->getRepository($constraint->entityClass);
 
-        $fields = (array)$constraint->fields;
+        $fields = (array) $constraint->fields;
         $criteria = [];
 
         foreach ($fields as $field) {
-            $criteria[$field] = $this->accessor->getValue($value, $field);
+            $criteria[$field] = $this->propertyAccessor->getValue($value, $field);
         }
 
         if (!$repository->count($criteria)) {
