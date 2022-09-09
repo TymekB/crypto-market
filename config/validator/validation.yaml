@@ -4,6 +4,7 @@ App\Dto\UserDto:
               fields: email
               entityClass: App\Entity\User
               atPath: email
+              message: user.email.unique
     properties:
         email:
             - Email: ~

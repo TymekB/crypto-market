@@ -23,6 +23,7 @@ final class RegistrationFormType extends AbstractType
                 'type' => PasswordType::class,
                 'first_options' => ['label' => 'Password'],
                 'second_options' => ['label' => 'Repeat Password'],
+                'invalid_message' => 'user.password.not_the_same'
             ])
             ->add('Submit', SubmitType::class, [
                 'attr' => ['class' => 'btn btn-success'],
