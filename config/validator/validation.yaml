@@ -1,4 +1,9 @@
 App\Dto\UserDto:
+    constraints:
+        - App\Validator\UniqueDto:
+              fields: email
+              entityClass: App\Entity\User
+              atPath: email
     properties:
         email:
             - Email: ~
