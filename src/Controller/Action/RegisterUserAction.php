@@ -18,10 +18,10 @@ use Twig\Environment;
 final class RegisterUserAction
 {
     public function __construct(
-        private readonly Environment $twig,
+        private readonly Environment          $twig,
         private readonly FormFactoryInterface $formFactory,
-        private readonly MessageBusInterface $messageBus,
-        private readonly RouterInterface $router
+        private readonly MessageBusInterface  $messageBus,
+        private readonly RouterInterface      $router
     ) {}
 
     public function __invoke(Request $request)
@@ -31,7 +31,7 @@ final class RegisterUserAction
         $form = $this->formFactory->create(RegistrationFormType::class, $userDto);
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $createUserCommand = new CreateUserCommand(
                 $userDto->getEmail(),
                 $userDto->getPassword()

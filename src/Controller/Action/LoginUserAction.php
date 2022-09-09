@@ -15,15 +15,15 @@ use Twig\Environment;
 final class LoginUserAction
 {
     public function __construct(
-        private readonly Environment $twig,
-        private readonly AuthenticationUtils $authenticationUtils,
+        private readonly Environment                   $twig,
+        private readonly AuthenticationUtils           $authenticationUtils,
         private readonly AuthorizationCheckerInterface $authorizationChecker,
-        private readonly RouterInterface $router
+        private readonly RouterInterface               $router
     ) {}
 
     public function __invoke(Request $request): Response
     {
-        if($this->authorizationChecker->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+        if ($this->authorizationChecker->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
             return new RedirectResponse($this->router->generate('dashboard'));
         }
 

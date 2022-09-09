@@ -1,8 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Dto;
 
-class UserDto
+final class UserDto
 {
     private string $email;
     private string $password;
