@@ -1,0 +1,5 @@
+services:
+    app.event_handler.user_created_event_handler:
+        class: App\Message\Event\UserCreatedEventHandler
+        tags:
+            - { name: messenger.message_handler, bus: event.bus }
