@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Controller\Action;
 
-use App\Command\CreateUserCommand;
 use App\Dto\UserDto;
 use App\Form\Type\RegistrationFormType;
+use App\Message\Command\CreateUserCommand;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
