@@ -6,6 +6,7 @@ namespace App\Form\Type;
 
 use App\Dto\UserDto;
 use EWZ\Bundle\RecaptchaBundle\Form\Type\EWZRecaptchaType;
+use EWZ\Bundle\RecaptchaBundle\Validator\Constraints\IsTrue;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
@@ -27,7 +28,10 @@ final class RegistrationFormType extends AbstractType
                 'invalid_message' => 'user.password.not_the_same'
             ])
             ->add('recaptcha', EWZRecaptchaType::class, [
-                'mapped' => false
+                'mapped' => false,
+                'constraints' => [
+                    new IsTrue()
+                ]
             ])
             ->add('Submit', SubmitType::class, [
                 'attr' => ['class' => 'btn btn-success'],
