@@ -78,4 +78,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $user;
     }
+
+    public function toDto(): UserDto
+    {
+        $userDto = new UserDto();
+        $userDto->setEmail($this->getEmail());
+        $userDto->setPassword($this->getPassword());
+
+        return $userDto;
+    }
 }
