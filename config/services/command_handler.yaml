@@ -4,5 +4,6 @@ services:
         arguments:
             - '@doctrine.orm.entity_manager'
             - '@security.user_password_hasher'
+            - '@messenger.default_bus'
         tags:
             - { name: messenger.message_handler }
