@@ -8,3 +8,12 @@ App\Dto\UserDto:
     properties:
         email:
             - Email: ~
+              
+App\Entity\User:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: email
+    properties:
+        email:
+            - Email: ~
+
+
