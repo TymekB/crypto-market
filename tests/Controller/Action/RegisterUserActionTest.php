@@ -8,6 +8,7 @@ use App\Entity\User;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\BrowserKit\AbstractBrowser;
+use Symfony\Component\DomCrawler\Form;
 
 final class RegisterUserActionTest extends WebTestCase
 {
@@ -30,11 +31,7 @@ final class RegisterUserActionTest extends WebTestCase
         $this->assertResponseIsSuccessful();
 
         $form = $crawler->selectButton('Submit')->form();
-        $form->setValues([
-            'registration_form[email]' => 'test@example.com',
-            'registration_form[password][first]' => 'test',
-            'registration_form[password][second]' => 'test'
-        ]);
+        $this->fillRegistrationForm($form, 'test@example.com', 'test');
 
         $this->client->submit($form);
         $this->assertResponseRedirects();
@@ -52,13 +49,23 @@ final class RegisterUserActionTest extends WebTestCase
         $crawler = $this->client->request('GET', '/register');
 
         $form = $crawler->selectButton('Submit')->form();
-        $form->setValues([
-            'registration_form[email]' => $user->getEmail(),
-            'registration_form[password][first]' => 'test',
-            'registration_form[password][second]' => 'test'
-        ]);
+        $this->fillRegistrationForm($form, $user->getEmail(), 'test');
 
         $this->client->submit($form);
         $this->assertSelectorTextContains('.invalid-feedback', 'Email is already used.');
+    }
+
+    private function fillRegistrationForm(
+        Form   $form,
+        string $email,
+        string $passwordFirst,
+        string $passwordSecond = null
+    ): Form
+    {
+        return $form->setValues([
+            'registration_form[email]' => $email,
+            'registration_form[password][first]' => $passwordFirst,
+            'registration_form[password][second]' => $passwordSecond === null ? $passwordFirst : $passwordSecond
+        ]);
     }
 }
