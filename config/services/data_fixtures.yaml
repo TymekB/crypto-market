@@ -1,0 +1,5 @@
+services:
+    app.data_fixtures.user_fixtures:
+        class: App\DataFixtures\UserFixtures
+        tags:
+            - { name: doctrine.fixture.orm }
