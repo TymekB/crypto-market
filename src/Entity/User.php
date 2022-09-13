@@ -8,7 +8,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
-    private ?int $id = null;
+    private ?string $id = null;
 
     private ?string $email = null;
 
@@ -16,7 +16,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     private ?string $password = null;
 
-    public function getId(): ?int
+    public function getId(): ?string
     {
         return $this->id;
     }
@@ -82,6 +82,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function toDto(): UserDto
     {
         $userDto = new UserDto();
+        $userDto->setId($this->getId());
         $userDto->setEmail($this->getEmail());
         $userDto->setPassword($this->getPassword());
 

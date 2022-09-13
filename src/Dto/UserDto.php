@@ -6,8 +6,19 @@ namespace App\Dto;
 
 final class UserDto
 {
+    private string $id;
     private string $email;
     private string $password;
+
+    public function getId(): ?string
+    {
+        return $this->id;
+    }
+
+    public function setId(string $id): void
+    {
+        $this->id = $id;
+    }
 
     public function getEmail(): string
     {
@@ -28,5 +39,4 @@ final class UserDto
     {
         $this->password = $password;
     }
-
 }
