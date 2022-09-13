@@ -1,7 +1,3 @@
-#controllers:
-#    resource: ../src/Controller/
-#    type: attribute
-#
 login:
     path: /
     controller: app.controller.action.login_user_action
@@ -13,6 +9,10 @@ logout:
 register:
     path: /register
     controller: app.controller.action.register_user_action
+
+verify_email:
+    path: /verify-email
+    controller: app.controller.action.verify_user_email
 
 dashboard:
     path: /dashboard

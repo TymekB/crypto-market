@@ -25,3 +25,8 @@ services:
             - '@router'
         tags:
             - { name: controller.service_arguments }
+
+    app.controller.action.verify_user_email:
+        class: App\Controller\Action\VerifyUserEmailAction
+        tags:
+            - { name: controller.service_arguments }
