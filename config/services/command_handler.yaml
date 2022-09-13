@@ -7,3 +7,8 @@ services:
             - '@messenger.default_bus'
         tags:
             - { name: messenger.message_handler }
+
+    app.command_handler.verify_user_email_handler:
+        class: App\Message\Command\VerifyUserEmailCommandHandler
+        tags:
+            - { name: messenger.message_handler }
