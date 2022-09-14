@@ -1,8 +1,15 @@
 services:
-    app.event_handler.user_created_event_handler:
+    app.event_handler.send_activation_email_on_user_created_handler:
         class: App\Message\Event\SendActivationEmailOnUserCreatedEventHandler
         arguments:
             - '@mailer'
             - '@symfonycasts.verify_email.helper'
+        tags:
+            - { name: messenger.message_handler, bus: event.bus }
+
+    app.event_handler.enable_user_on_user_verified_event_handler:
+        class: App\Message\Event\EnableUserOnUserVerifiedEventHandler
+        arguments:
+            - '@doctrine.orm.default_entity_manager'
         tags:
             - { name: messenger.message_handler, bus: event.bus }
