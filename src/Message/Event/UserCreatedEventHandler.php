@@ -12,7 +12,7 @@ use SymfonyCasts\Bundle\VerifyEmail\VerifyEmailHelperInterface;
 final class UserCreatedEventHandler implements MessageHandlerInterface
 {
     public function __construct(
-        private readonly MailerInterface $mailer,
+        private readonly MailerInterface            $mailer,
         private readonly VerifyEmailHelperInterface $verifyEmailHelper
     ) {}
 
@@ -23,7 +23,8 @@ final class UserCreatedEventHandler implements MessageHandlerInterface
         $signature = $this->verifyEmailHelper->generateSignature(
             'verify_email',
             $user->getId(),
-            $user->getEmail()
+            $user->getEmail(),
+            ['id' => $user->getId()]
         );
 
         $email = (new TemplatedEmail())

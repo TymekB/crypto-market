@@ -28,5 +28,8 @@ services:
 
     app.controller.action.verify_user_email:
         class: App\Controller\Action\VerifyUserEmailAction
+        arguments:
+            - '@messenger.default_bus'
+            - '@router.default'
         tags:
             - { name: controller.service_arguments }

@@ -10,5 +10,8 @@ services:
 
     app.command_handler.verify_user_email_handler:
         class: App\Message\Command\VerifyUserEmailCommandHandler
+        arguments:
+            - '@symfonycasts.verify_email.helper'
+            - '@doctrine.orm.default_entity_manager'
         tags:
             - { name: messenger.message_handler }
