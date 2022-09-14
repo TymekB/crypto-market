@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Security;
 
 use App\Entity\User;
-use Symfony\Component\Security\Core\Exception\CustomUserMessageAccountStatusException;
+use App\Security\Exception\UserNotEnabledException;
 use Symfony\Component\Security\Core\User\UserCheckerInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -18,9 +18,7 @@ final class UserChecker implements UserCheckerInterface
         }
 
         if (!$user->isEnabled()) {
-            throw new CustomUserMessageAccountStatusException(
-                'You have to confirm your email.'
-            );
+            throw new UserNotEnabledException();
         }
     }
 
