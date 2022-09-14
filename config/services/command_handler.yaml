@@ -4,16 +4,16 @@ services:
         arguments:
             - '@doctrine.orm.entity_manager'
             - '@security.user_password_hasher'
-            - '@messenger.default_bus'
+            - '@event.bus'
         tags:
-            - { name: messenger.message_handler }
+            - { name: messenger.message_handler, bus: command.bus }
 
     app.command_handler.verify_user_email_handler:
         class: App\Message\Command\VerifyUserEmailCommandHandler
         arguments:
             - '@symfonycasts.verify_email.helper'
             - '@doctrine.orm.default_entity_manager'
-            - '@messenger.default_bus'
+            - '@event.bus'
         tags:
-            - { name: messenger.message_handler }
+            - { name: messenger.message_handler, bus: command.bus }
 

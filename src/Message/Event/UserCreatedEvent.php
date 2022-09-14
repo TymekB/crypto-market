@@ -9,11 +9,26 @@ use App\Dto\UserDto;
 final class UserCreatedEvent
 {
     public function __construct(
-        private readonly UserDto $user
+        private readonly string $id,
+        private readonly string $email
     ) {}
 
-    public function getUser(): UserDto
+    public function getId(): string
     {
-        return $this->user;
+        return $this->id;
     }
+
+    public function getEmail(): string
+    {
+        return $this->email;
+    }
+
+    public static function fromDto(UserDto $userDto): self
+    {
+        return new self(
+            $userDto->getId(),
+            $userDto->getEmail()
+        );
+    }
+
 }

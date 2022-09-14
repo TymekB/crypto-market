@@ -18,18 +18,19 @@ final class SendActivationEmailOnUserCreatedEventHandler implements MessageHandl
 
     public function __invoke(UserCreatedEvent $userCreatedEvent)
     {
-        $user = $userCreatedEvent->getUser();
+        $userId = $userCreatedEvent->getId();
+        $userEmail = $userCreatedEvent->getEmail();
 
         $signature = $this->verifyEmailHelper->generateSignature(
             'verify_email',
-            $user->getId(),
-            $user->getEmail(),
-            ['id' => $user->getId()]
+            $userId,
+            $userEmail,
+            ['id' => $userId]
         );
 
         $email = (new TemplatedEmail())
             ->from('cryptomarket@cryptomarket.com')
-            ->to($user->getEmail())
+            ->to($userEmail)
             ->subject('Confirm your email at CryptoMarket')
             ->htmlTemplate('mailer/email_confirmation.html.twig')
             ->context([

@@ -15,7 +15,7 @@ use Symfony\Component\Routing\RouterInterface;
 final class VerifyUserEmailAction
 {
     public function __construct(
-        private readonly MessageBusInterface $messageBus,
+        private readonly MessageBusInterface $commandBus,
         private readonly RouterInterface     $router,
     ) {}
 
@@ -27,7 +27,7 @@ final class VerifyUserEmailAction
             throw new NotFoundHttpException("User id not found");
         }
 
-        $this->messageBus->dispatch(
+        $this->commandBus->dispatch(
             new VerifyUserEmailCommand($userId, $request->getUri()
         ));
 

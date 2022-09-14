@@ -16,7 +16,7 @@ final class CreateUserCommandHandler implements MessageHandlerInterface
     public function __construct(
         private readonly EntityManagerInterface $entityManager,
         private readonly UserPasswordHasherInterface $passwordHasher,
-        private readonly MessageBusInterface $messageBus
+        private readonly MessageBusInterface $eventBus
     ) {}
 
     public function __invoke(CreateUserCommand $createUserCommand)
@@ -36,6 +36,6 @@ final class CreateUserCommandHandler implements MessageHandlerInterface
         $this->entityManager->flush();
 
         $userDto = $user->toDto();
-        $this->messageBus->dispatch(new UserCreatedEvent($userDto));
+        $this->eventBus->dispatch(UserCreatedEvent::fromDto($userDto));
     }
 }

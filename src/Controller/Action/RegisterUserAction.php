@@ -20,7 +20,7 @@ final class RegisterUserAction
     public function __construct(
         private readonly Environment          $twig,
         private readonly FormFactoryInterface $formFactory,
-        private readonly MessageBusInterface  $messageBus,
+        private readonly MessageBusInterface  $commandBus,
         private readonly RouterInterface      $router
     ){}
 
@@ -32,7 +32,7 @@ final class RegisterUserAction
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->messageBus->dispatch(CreateUserCommand::fromDto($userDto));
+            $this->commandBus->dispatch(CreateUserCommand::fromDto($userDto));
 
             $request->getSession()
                 ->getFlashBag()
