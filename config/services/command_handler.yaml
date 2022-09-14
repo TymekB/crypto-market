@@ -13,5 +13,7 @@ services:
         arguments:
             - '@symfonycasts.verify_email.helper'
             - '@doctrine.orm.default_entity_manager'
+            - '@messenger.default_bus'
         tags:
             - { name: messenger.message_handler }
+

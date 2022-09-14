@@ -5,14 +5,17 @@ declare(strict_types=1);
 namespace App\Message\Command;
 
 use App\Entity\User;
+use App\Message\Event\UserVerifiedEvent;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Messenger\MessageBusInterface;
 use SymfonyCasts\Bundle\VerifyEmail\VerifyEmailHelperInterface;
 
 final class VerifyUserEmailCommandHandler
 {
     public function __construct(
         private readonly VerifyEmailHelperInterface $verifyEmailHelper,
-        private readonly EntityManagerInterface $entityManager
+        private readonly EntityManagerInterface $entityManager,
+        private readonly MessageBusInterface $eventBus
     ) {}
 
     public function __invoke(VerifyUserEmailCommand $verifyUserEmailCommand)
@@ -29,5 +32,7 @@ final class VerifyUserEmailCommandHandler
             $user->getId(),
             $user->getEmail()
         );
+
+        $this->eventBus->dispatch(new UserVerifiedEvent($user->getId()));
     }
 }
