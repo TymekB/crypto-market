@@ -1,6 +1,6 @@
 services:
     app.event_handler.user_created_event_handler:
-        class: App\Message\Event\UserCreatedEventHandler
+        class: App\Message\Event\SendActivationEmailOnUserCreatedEventHandler
         arguments:
             - '@mailer'
             - '@symfonycasts.verify_email.helper'

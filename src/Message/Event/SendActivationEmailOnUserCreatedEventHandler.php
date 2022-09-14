@@ -9,7 +9,7 @@ use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
 use SymfonyCasts\Bundle\VerifyEmail\VerifyEmailHelperInterface;
 
-final class UserCreatedEventHandler implements MessageHandlerInterface
+final class SendActivationEmailOnUserCreatedEventHandler implements MessageHandlerInterface
 {
     public function __construct(
         private readonly MailerInterface            $mailer,
