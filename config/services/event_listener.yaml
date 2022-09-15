@@ -1,0 +1,7 @@
+services:
+    app.event_listener.exception_event_listener:
+        class: App\EventListener\ExceptionEventListener
+        arguments:
+            - '@router.default'
+        tags:
+            - { name: kernel.event_listener, event: kernel.exception }
