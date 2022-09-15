@@ -18,18 +18,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     private bool $enabled = false;
 
-    public function isEnabled(): bool
-    {
-        return $this->enabled;
-    }
-
-    public function setEnabled(bool $enabled): self
-    {
-        $this->enabled = $enabled;
-
-        return $this;
-    }
-
     public function getId(): ?string
     {
         return $this->id;
@@ -82,6 +70,25 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function eraseCredentials()
     {
+    }
+
+    public function isEnabled(): bool
+    {
+        return $this->enabled;
+    }
+
+    public function enable(): self
+    {
+        $this->enabled = true;
+
+        return $this;
+    }
+
+    public function disable(): self
+    {
+        $this->enabled = false;
+
+        return $this;
     }
 
     public static function fromDto(UserDto $userDto): self
