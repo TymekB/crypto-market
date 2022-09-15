@@ -2,7 +2,7 @@ services:
     app.event_handler.send_activation_email_on_user_created_handler:
         class: App\Message\Event\SendActivationEmailOnUserCreatedEventHandler
         arguments:
-            - '@mailer'
+            - '@app.decorator.email_verification_mailer_decorator'
             - '@symfonycasts.verify_email.helper'
         tags:
             - { name: messenger.message_handler, bus: event.bus }

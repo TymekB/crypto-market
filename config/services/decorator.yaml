@@ -1,0 +1,5 @@
+services:
+    app.decorator.email_verification_mailer_decorator:
+        class: App\Decorator\EmailVerificationMailer
+        arguments:
+            - '@mailer'
