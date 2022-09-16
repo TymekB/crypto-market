@@ -9,7 +9,7 @@ use Symfony\Component\Security\Core\Exception\CustomUserMessageAccountStatusExce
 final class UserNotEnabledException extends CustomUserMessageAccountStatusException
 {
     public function __construct(
-        string $message = 'You have to confirm your email',
+        string $message = 'You have to confirm your email.',
         array $messageData = [], int $code = 0,
         \Throwable $previous = null
     )

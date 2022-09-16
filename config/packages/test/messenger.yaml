@@ -1,0 +1,8 @@
+framework:
+    messenger:
+        transports:
+            async: 'in-memory://'
+            sync: 'sync://'
+
+        routing:
+            Symfony\Component\Mailer\Messenger\SendEmailMessage: sync
