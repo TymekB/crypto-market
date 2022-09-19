@@ -103,7 +103,7 @@ final class RegisterUserActionTest extends WebTestCase
         Form $form,
         string $email,
         string $password
-    )
+    ): Form
     {
         return $form->setValues([
             '_username' => $email,
