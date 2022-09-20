@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Controller\Action;
+namespace App\Tests\Application\Controller\Action;
 
 use App\Entity\User;
 use Doctrine\ORM\EntityRepository;

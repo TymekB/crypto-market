@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\Decorator;
+namespace App\Tests\Unit\Decorator;
 
 use App\Decorator\EmailVerificationMailer;
 use PHPUnit\Framework\TestCase;

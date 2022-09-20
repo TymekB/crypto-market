@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Message\Command;
+namespace App\Tests\Integrational\Message\Command;
 
 use App\Entity\User;
 use App\Message\Command\CreateUserCommand;

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Form\Type;
+namespace App\Tests\Unit\Form\Type;
 
 use App\Dto\UserDto;
 use App\Form\Type\RegistrationFormType;
@@ -10,10 +10,10 @@ use Symfony\Component\Form\Test\TypeTestCase;
 
 final class RegistrationFormTypeTest extends TypeTestCase
 {
-    public function testSubmitValidData()
+    public function testIfValidDataIsMappedIntoModel()
     {
         $formData = [
-            'email' => 'testuser@example.com',
+            'email' => 'user@example.com',
             'password' => [
                 'first' => 'test',
                 'second' => 'test'
