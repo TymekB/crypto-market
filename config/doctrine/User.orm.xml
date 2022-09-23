@@ -13,6 +13,6 @@
         <field name="email" column="email" type="string" length="180" unique="true"/>
         <field name="password" column="password" type="string" length="255"/>
         <field name="roles" column="roles" type="json" />
-        <field name="enabled" column="enabled" type="boolean" />
+        <field name="verified" column="verified" type="boolean" />
     </entity>
 </doctrine-mapping>

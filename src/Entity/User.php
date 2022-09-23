@@ -16,7 +16,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     private ?string $password = null;
 
-    private bool $enabled = false;
+    private bool $verified = false;
 
     public function getId(): ?string
     {
@@ -72,23 +72,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
     }
 
-    public function isEnabled(): bool
+    public function setVerified(bool $verified): self
     {
-        return $this->enabled;
-    }
-
-    public function enable(): self
-    {
-        $this->enabled = true;
+        $this->verified = $verified;
 
         return $this;
     }
 
-    public function disable(): self
+    public function getVerified(): bool
     {
-        $this->enabled = false;
-
-        return $this;
+        return $this->verified;
     }
 
     public static function fromDto(UserDto $userDto): self

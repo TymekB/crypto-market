@@ -15,7 +15,6 @@ final class UserCreatedEventTest extends KernelTestCase
     private readonly MessageBusInterface $eventBus;
     private readonly EntityManagerInterface $entityManager;
 
-
     public function setUp(): void
     {
         self::bootKernel();
@@ -29,11 +28,7 @@ final class UserCreatedEventTest extends KernelTestCase
     {
         $user = $this->entityManager
             ->getRepository(User::class)
-            ->findOneBy(
-                [
-                    'email' => 'user@example.com'
-                ]
-            );
+            ->findOneBy(['email' => 'user@example.com']);
 
         $this->assertNotNull($user);
 

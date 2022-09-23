@@ -21,7 +21,7 @@ final class EnableUserOnUserVerifiedEventHandler
         $userId = $userVerifiedEvent->getId();
 
         $user = $userRepository->find($userId);
-        $user->enable();
+        $user->setVerified(true);
 
         $this->entityManager->persist($user);
         $this->entityManager->flush();

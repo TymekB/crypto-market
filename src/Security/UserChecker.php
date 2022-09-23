@@ -17,7 +17,7 @@ final class UserChecker implements UserCheckerInterface
             return;
         }
 
-        if (!$user->isEnabled()) {
+        if (!$user->getVerified()) {
             throw new UserNotEnabledException();
         }
     }

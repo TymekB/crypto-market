@@ -32,11 +32,7 @@ final class CreateUserCommandTest extends KernelTestCase
 
         $user = $this->entityManager
             ->getRepository(User::class)
-            ->findOneBy(
-                [
-                    'email' => 'test@example.com'
-                ]
-            );
+            ->findOneBy(['email' => 'test@example.com']);
 
         $this->assertNotNull($user);
         $this->assertEquals('test@example.com', $user->getEmail());
