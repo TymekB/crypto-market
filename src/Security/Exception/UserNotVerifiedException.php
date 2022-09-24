@@ -6,7 +6,7 @@ namespace App\Security\Exception;
 
 use Symfony\Component\Security\Core\Exception\CustomUserMessageAccountStatusException;
 
-final class UserNotEnabledException extends CustomUserMessageAccountStatusException
+final class UserNotVerifiedException extends CustomUserMessageAccountStatusException
 {
     public function __construct(
         string $message = 'You have to confirm your email.',
