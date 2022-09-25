@@ -33,3 +33,11 @@ services:
             - '@router.default'
         tags:
             - { name: controller.service_arguments }
+
+    app.controller.action.reset_password_request_action:
+        class: App\Controller\Action\ResetPasswordRequestAction
+        arguments:
+            - '@twig'
+            - '@form.factory'
+        tags:
+            - { name: controller.service_arguments }
