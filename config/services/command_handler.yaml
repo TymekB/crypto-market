@@ -17,3 +17,7 @@ services:
         tags:
             - { name: messenger.message_handler, bus: command.bus }
 
+    app.command_handler.reset_user_password_command_handler:
+        class: App\Message\Command\ResetUserPasswordCommandHandler
+        tags:
+            - { name: messenger.message_handler, bus: command.bus }
