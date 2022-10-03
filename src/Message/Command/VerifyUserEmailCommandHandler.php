@@ -7,9 +7,11 @@ namespace App\Message\Command;
 use App\Entity\User;
 use App\Message\Event\UserVerifiedEvent;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 use Symfony\Component\Messenger\MessageBusInterface;
 use SymfonyCasts\Bundle\VerifyEmail\VerifyEmailHelperInterface;
 
+#[AsMessageHandler]
 final class VerifyUserEmailCommandHandler
 {
     public function __construct(

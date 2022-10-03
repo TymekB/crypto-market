@@ -7,11 +7,12 @@ namespace App\Message\Command;
 use App\Entity\User;
 use App\Message\Event\UserCreatedEvent;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
+use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
-final class CreateUserCommandHandler implements MessageHandlerInterface
+#[AsMessageHandler]
+final class CreateUserCommandHandler
 {
     public function __construct(
         private readonly EntityManagerInterface $entityManager,

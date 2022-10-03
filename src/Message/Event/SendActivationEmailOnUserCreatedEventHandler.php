@@ -5,10 +5,11 @@ declare(strict_types=1);
 namespace App\Message\Event;
 
 use App\Decorator\EmailVerificationMailerInterface;
-use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
+use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 use SymfonyCasts\Bundle\VerifyEmail\VerifyEmailHelperInterface;
 
-final class SendActivationEmailOnUserCreatedEventHandler implements MessageHandlerInterface
+#[AsMessageHandler]
+final class SendActivationEmailOnUserCreatedEventHandler
 {
     public function __construct(
         private readonly EmailVerificationMailerInterface $mailer,

@@ -7,12 +7,16 @@ namespace App\Message\Event;
 use App\Entity\User;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 
+#[AsMessageHandler]
 final class EnableUserOnUserVerifiedEventHandler
 {
     public function __construct(
         private readonly EntityManagerInterface $entityManager
-    ) {}
+    )
+    {
+    }
 
     public function __invoke(UserVerifiedEvent $userVerifiedEvent): void
     {
