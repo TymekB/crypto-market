@@ -1,7 +1,0 @@
-services:
-    app.factory.user_factory:
-        class: App\Factory\UserFactory
-        arguments:
-            - '@security.user_password_hasher'
-        tags:
-            - { name: foundry.factory }

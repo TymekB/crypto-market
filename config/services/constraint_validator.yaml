@@ -1,9 +1,0 @@
-services:
-    app.validator.unique_dto_validator:
-        class: App\Validator\UniqueDtoValidator
-        arguments:
-            - '@doctrine.orm.entity_manager'
-            - '@property_accessor'
-        tags:
-            - { name: validator.constraint_validator }
-
