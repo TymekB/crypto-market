@@ -2,9 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Message\Event;
+namespace App\Message\EventHandler;
 
 use App\Decorator\EmailVerificationMailerInterface;
+use App\Message\Event\UserCreatedEvent;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 use SymfonyCasts\Bundle\VerifyEmail\VerifyEmailHelperInterface;
 

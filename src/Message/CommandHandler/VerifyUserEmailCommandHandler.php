@@ -2,9 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Message\Command;
+namespace App\Message\CommandHandler;
 
 use App\Entity\User;
+use App\Message\Command\VerifyUserEmailCommand;
 use App\Message\Event\UserVerifiedEvent;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;

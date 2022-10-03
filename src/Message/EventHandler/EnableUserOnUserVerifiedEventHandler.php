@@ -2,9 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Message\Event;
+namespace App\Message\EventHandler;
 
 use App\Entity\User;
+use App\Message\Event\UserVerifiedEvent;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
