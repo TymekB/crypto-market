@@ -1,10 +1,7 @@
-imports:
-    - { resource: services/ }
-
 services:
     _defaults:
-        autowire: false
-        autoconfigure: false
+        autowire: true
+        autoconfigure: true
 
     App\:
         resource: '../src/'
@@ -13,3 +10,6 @@ services:
             - '../src/Entity/'
             - '../src/Kernel.php'
 
+    App\Controller\Action\:
+        resource: '../src/Controller/Action'
+        tags: [ 'controller.service_arguments' ]
