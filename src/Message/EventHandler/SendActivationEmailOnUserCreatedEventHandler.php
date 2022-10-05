@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Message\EventHandler;
 
-use App\Decorator\EmailVerificationMailerInterface;
+use App\Decorator\UserMailerInterface;
 use App\Message\Event\UserCreatedEvent;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 use SymfonyCasts\Bundle\VerifyEmail\VerifyEmailHelperInterface;
@@ -13,8 +13,8 @@ use SymfonyCasts\Bundle\VerifyEmail\VerifyEmailHelperInterface;
 final class SendActivationEmailOnUserCreatedEventHandler
 {
     public function __construct(
-        private readonly EmailVerificationMailerInterface $mailer,
-        private readonly VerifyEmailHelperInterface       $verifyEmailHelper
+        private readonly UserMailerInterface        $mailer,
+        private readonly VerifyEmailHelperInterface $verifyEmailHelper
     ) {}
 
     public function __invoke(UserCreatedEvent $userCreatedEvent)
@@ -29,6 +29,6 @@ final class SendActivationEmailOnUserCreatedEventHandler
             ['id' => $userId]
         )->getSignedUrl();
 
-        $this->mailer->send($userEmail, $signedUrl);
+        $this->mailer->sendActivationEmail($userEmail, $signedUrl);
     }
 }
