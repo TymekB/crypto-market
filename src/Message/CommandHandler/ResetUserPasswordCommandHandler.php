@@ -6,8 +6,10 @@ namespace App\Message\CommandHandler;
 
 use App\Entity\User;
 use App\Message\Command\ResetUserPasswordCommand;
+use App\Message\Event\ResetPasswordTokenGeneratedEvent;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
+use Symfony\Component\Messenger\MessageBusInterface;
 use SymfonyCasts\Bundle\ResetPassword\ResetPasswordHelperInterface;
 
 #[AsMessageHandler]
@@ -15,7 +17,8 @@ final class ResetUserPasswordCommandHandler
 {
     public function __construct(
         private readonly ResetPasswordHelperInterface $resetPasswordHelper,
-        private readonly EntityManagerInterface       $entityManager
+        private readonly EntityManagerInterface       $entityManager,
+        private readonly MessageBusInterface          $eventBus
     )
     {
     }
@@ -27,6 +30,10 @@ final class ResetUserPasswordCommandHandler
             'email' => $userEmail,
         ]);
 
-        $this->resetPasswordHelper->generateResetToken($user);
+        $resetToken = $this->resetPasswordHelper->generateResetToken($user);
+
+        $this->eventBus->dispatch(
+            new ResetPasswordTokenGeneratedEvent($resetToken, $userEmail)
+        );
     }
 }
