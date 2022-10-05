@@ -11,6 +11,7 @@ use Symfony\Component\Mailer\Envelope;
 use Symfony\Component\Mailer\Mailer;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\RawMessage;
+use SymfonyCasts\Bundle\ResetPassword\Model\ResetPasswordToken;
 
 #[AsDecorator(decorates: Mailer::class)]
 final class UserMailer implements UserMailerInterface
@@ -47,7 +48,7 @@ final class UserMailer implements UserMailerInterface
 
     public function sendResetPasswordToken(
         string $userEmail,
-        string $resetToken,
+        ResetPasswordToken $resetToken,
         string $template = 'mailer/reset_password.html.twig'
     ): void
     {
