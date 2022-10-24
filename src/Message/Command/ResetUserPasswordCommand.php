@@ -6,13 +6,21 @@ namespace App\Message\Command;
 
 final class ResetUserPasswordCommand
 {
-    public function __construct(private readonly string $email)
+    public function __construct(
+        private readonly string $token,
+        private readonly string $newPassword
+    )
     {
     }
 
-    public function getEmail(): string
+    public function getToken(): string
     {
-        return $this->email;
+        return $this->token;
+    }
+
+    public function getNewPassword(): string
+    {
+        return $this->newPassword;
     }
 
 }
