@@ -23,5 +23,7 @@ reset_password_request:
     controller: App\Controller\Action\ResetPasswordRequestAction
 
 reset_password:
-    path: /reset-password
-    controller: App\Controller\Action\ResetPasswordRequestAction
+    path: /reset-password/{token}
+    controller: App\Controller\Action\ResetPasswordAction
+    defaults:
+        token: null
