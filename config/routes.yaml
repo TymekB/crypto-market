@@ -18,6 +18,10 @@ dashboard:
     path: /dashboard
     controller: App\Controller\Action\ShowDashboardAction
 
+reset_password_request:
+    path: /reset-password-request
+    controller: App\Controller\Action\ResetPasswordRequestAction
+
 reset_password:
     path: /reset-password
     controller: App\Controller\Action\ResetPasswordRequestAction
