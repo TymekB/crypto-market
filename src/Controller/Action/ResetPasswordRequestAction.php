@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Controller\Action;
 
 use App\Form\Type\ResetPasswordRequestFormType;
-use App\Message\Command\ResetUserPasswordCommand;
+use App\Message\Command\ResetUserPasswordRequestCommand;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -31,7 +31,7 @@ final class ResetPasswordRequestAction
             $userEmail = $form->get('email')->getData();
 
             $this->commandBus->dispatch(
-                new ResetUserPasswordCommand($userEmail)
+                new ResetUserPasswordRequestCommand($userEmail)
             );
         }
 
