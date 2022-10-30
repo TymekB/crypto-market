@@ -11,6 +11,14 @@
                 <div class="card-body">
                     <h3 class="mt-2">Reset your password</h3>
                     {{ form(form) }}
+
+                    {% for label, messages in app.flashes(['success', 'danger']) %}
+                        {% for message in messages %}
+                            <div class="alert alert-{{ label }} mb-3">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endfor %}
                 </div>
             </div>
         </div>

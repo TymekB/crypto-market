@@ -56,6 +56,10 @@ final class ResetPasswordAction
 
             $this->resetPasswordSessionManager->cleanSessionAfterReset();
 
+            $request->getSession()
+                ->getFlashBag()
+                ->add('success', 'Password was successfully changed. You can now log in.');
+
             return new RedirectResponse(
                 $this->router->generate('login')
             );
