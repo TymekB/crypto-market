@@ -33,6 +33,10 @@ final class ResetPasswordRequestAction
             $this->commandBus->dispatch(
                 new ResetUserPasswordRequestCommand($userEmail)
             );
+
+            $request->getSession()
+                ->getFlashBag()
+                ->add('success', 'Reset password link was successfully sent. Check your email');
         }
 
         return new Response(

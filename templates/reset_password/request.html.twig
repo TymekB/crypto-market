@@ -23,8 +23,16 @@
                         </small>
                     </div>
 
-                    <button class="btn btn-primary">Send password reset email</button>
+                    <button class="btn btn-primary mb-3">Send password reset email</button>
                     {{ form_end(form) }}
+
+                    {% for label, messages in app.flashes(['success', 'danger']) %}
+                        {% for message in messages %}
+                            <div class="alert alert-{{ label }}">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endfor %}
                 </div>
             </div>
         </div>
