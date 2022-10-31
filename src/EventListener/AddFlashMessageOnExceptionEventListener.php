@@ -13,11 +13,9 @@ use SymfonyCasts\Bundle\ResetPassword\Exception\TooManyPasswordRequestsException
 use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
 
 #[AsEventListener(event: ExceptionEvent::class)]
-final class ExceptionEventListener
+final class AddFlashMessageOnExceptionEventListener
 {
-    public function __construct(
-        private readonly RouterInterface $router,
-    )
+    public function __construct(private readonly RouterInterface $router)
     {
     }
 
