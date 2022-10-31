@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Message\CommandHandler;
 
 use App\Entity\User;
+use App\Exception\UserNotFoundException;
 use App\Message\Command\ResetUserPasswordRequestCommand;
 use App\Message\Event\ResetPasswordTokenGeneratedEvent;
 use Doctrine\ORM\EntityManagerInterface;
@@ -29,6 +30,10 @@ final class ResetUserPasswordRequestCommandHandler
         $user = $this->entityManager->getRepository(User::class)->findOneBy([
             'email' => $userEmail,
         ]);
+
+        if(!$user) {
+            throw new UserNotFoundException();
+        }
 
         $resetToken = $this->resetPasswordHelper->generateResetToken($user);
 
