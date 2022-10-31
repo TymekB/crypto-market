@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
 use Symfony\Component\Messenger\Exception\HandlerFailedException;
 use Symfony\Component\Routing\RouterInterface;
+use SymfonyCasts\Bundle\ResetPassword\Exception\TooManyPasswordRequestsException;
 use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
 
 #[AsEventListener(event: ExceptionEvent::class)]
@@ -37,6 +38,18 @@ final class ExceptionEventListener
 
             $response = new RedirectResponse(
                 $this->router->generate('login')
+            );
+            $event->setResponse($response);
+        }
+
+        if ($exception instanceof TooManyPasswordRequestsException) {
+            $flashbag->add(
+                'danger',
+                'You need to wait at least 5 minutes before another password reset attempt.'
+            );
+
+            $response = new RedirectResponse(
+                $this->router->generate('reset_password_request')
             );
             $event->setResponse($response);
         }
