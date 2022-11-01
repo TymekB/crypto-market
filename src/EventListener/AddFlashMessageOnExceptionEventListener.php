@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\EventListener;
 
+use App\Exception\UserNotFoundException;
 use Symfony\Component\EventDispatcher\Attribute\AsEventListener;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
@@ -39,6 +40,15 @@ final class AddFlashMessageOnExceptionEventListener
 
         if ($exception instanceof ResetPasswordExceptionInterface) {
             $flashbag->add('danger', $exception->getReason());
+
+            $response = new RedirectResponse(
+                $this->router->generate('reset_password_request')
+            );
+            $event->setResponse($response);
+        }
+
+        if($exception instanceof UserNotFoundException) {
+            $flashbag->add('danger', $exception->getMessage());
 
             $response = new RedirectResponse(
                 $this->router->generate('reset_password_request')
