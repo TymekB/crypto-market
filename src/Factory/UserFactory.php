@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Factory;
 
 use App\Entity\User;
+use App\Exception\UserNotValidException;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -29,7 +30,7 @@ final class UserFactory implements UserFactoryInterface
         $errors = $this->validator->validate($user);
 
         if(count($errors) > 0) {
-            throw new \Exception((string)$errors);
+            throw new UserNotValidException($errors);
         }
 
         return $user;
