@@ -27,22 +27,26 @@
                     <tr>
                         <th class="text-center">#</th>
                         <th class="w-50">Name</th>
-                        <th>Price</th>
+                        <th style="min-width: 15%">Price</th>
                         <th>Change</th>
                         <th>Trade</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <th>1</th>
-                        <td>Bitcoin <span style="color: gray;">BTC</span></td>
-                        <td>$93,203.78</td>
-                        <td class="danger-color">-0.5%</td>
-                        <td>
-                            <a href="#" class="btn btn-success">Buy</a>
-                            <a href="#" class="btn btn-primary">Sell</a>
-                        </td>
-                    </tr>
+                    {% for index, cryptoCurrency in cryptoCurrencyList %}
+                        <tr>
+                            <th>{{ index+1 }}</th>
+                            <td>{{ cryptoCurrency.symbol }}</td>
+                            <td>${{ cryptoCurrency.lastPrice }}</td>
+                            <td class="{{ cryptoCurrency.priceChangePercent > 0 ? 'success-color' : 'danger-color' }}">
+                                {{ cryptoCurrency.priceChangePercent|round(1, 'floor') }}%
+                            </td>
+                            <td>
+                                <a href="#" class="btn btn-success">Buy</a>
+                                <a href="#" class="btn btn-primary">Sell</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
                     </tbody>
                 </table>
             </div>
