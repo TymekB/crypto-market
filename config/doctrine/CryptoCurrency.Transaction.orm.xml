@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doctrine-mapping xmlns="https://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="https://doctrine-project.org/schemas/orm/doctrine-mapping
+                          https://www.doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+    <entity name="App\Entity\CryptoCurrency\Transaction">
+        <id name="id" column="id">
+            <generator strategy="CUSTOM"/>
+            <custom-id-generator class="Symfony\Bridge\Doctrine\IdGenerator\UlidGenerator"/>
+        </id>
+
+        <many-to-one field="user" target-entity="App\Entity\User" inversed-by="transactions">
+            <join-column name="user_id" referenced-column-name="id"/>
+        </many-to-one>
+
+        <field name="symbol" column="symbol" type="string" length="255"/>
+        <field name="quantity" column="quantity" type="float" />
+        <field name="price" column="price" type="float" />
+        <field name="type" column="type" type="string" enum-type="App\Entity\CryptoCurrency\TransactionType"/>
+        <field name="createdAt" column="created_at" type="datetime_immutable" />
+    </entity>
+</doctrine-mapping>
