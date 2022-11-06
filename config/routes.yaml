@@ -27,3 +27,7 @@ reset_password:
     controller: App\Controller\Action\ResetPasswordAction
     defaults:
         token: null
+
+buy_cryptocurrency:
+    path: /buy/{symbol}
+    controller: App\Controller\Action\CryptoCurrency\BuyCryptoCurrencyAction
