@@ -15,5 +15,7 @@
         <field name="roles" column="roles" type="json"/>
         <field name="verified" column="verified" type="boolean"/>
         <one-to-many field="transactions" target-entity="App\Entity\CryptoCurrency\Transaction" mapped-by="user"/>
+        <one-to-many field="cryptoCurrencies" target-entity="App\Entity\CryptoCurrency" mapped-by="user"/>
+
     </entity>
 </doctrine-mapping>
