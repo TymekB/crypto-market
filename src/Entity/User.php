@@ -21,6 +21,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     private bool $verified = false;
 
+    private Collection $cryptoCurrencies;
+
     private Collection $transactions;
 
     public function __construct()
@@ -94,6 +96,31 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->verified;
     }
 
+    public function getCryptoCurrencies(): Collection
+    {
+        return $this->cryptoCurrencies;
+    }
+
+    public function addCryptoCurrency(CryptoCurrency $cryptoCurrency): self
+    {
+        if (!$this->cryptoCurrencies->contains($cryptoCurrency)) {
+            $this->cryptoCurrencies[] = $cryptoCurrency;
+            $cryptoCurrency->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCryptoCurrency(CryptoCurrency $cryptocurrency): self
+    {
+        if (!$this->cryptoCurrencies->contains($cryptocurrency)) {
+            $this->cryptoCurrencies[] = $cryptocurrency;
+            $cryptocurrency->setUser($this);
+        }
+
+        return $this;
+    }
+
     public function getTransactions(): Collection
     {
         return $this->transactions;
@@ -109,7 +136,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function removeShortUrl(Transaction $transaction): self
+    public function removeTransaction(Transaction $transaction): self
     {
         if ($this->transactions->contains($transaction)) {
             $this->transactions->removeElement($transaction);
