@@ -4,28 +4,29 @@ declare(strict_types=1);
 
 namespace App\Controller\Action;
 
-use App\API\Binance\CryptoCurrencyManagerInterface;
+use App\Decorator\UserCryptoCurrencyManagerInterface;
+use App\Entity\User;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Twig\Environment;
 
 final class ShowDashboardAction
 {
     public function __construct(
         private readonly Environment $twig,
-        private readonly CryptoCurrencyManagerInterface $binanceAPI
+        private readonly UserCryptoCurrencyManagerInterface $userCryptoCurrencyManager
     ) {}
 
-    public function __invoke(): Response
+    public function __invoke(UserInterface $user): Response
     {
-        $cryptoCurrencyList = $this->binanceAPI->getCryptoCurrenciesBySymbol([
-            'BTCUSDT',
-            'ETHUSDT',
-            'LTCUSDT'
-        ]);
+        /** @var User $user */
+        $cryptoCurrencyList = $this->userCryptoCurrencyManager->getUserCryptoCurrencyList($user);
 
+        /** @var User $user */
         return new Response($this->twig->render('dashboard.html.twig',
             [
-                'cryptoCurrencyList' => $cryptoCurrencyList
+                'cryptoCurrencyList' => $cryptoCurrencyList,
+                'user' => $user
             ]
         ));
     }
