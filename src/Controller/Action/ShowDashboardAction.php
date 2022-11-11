@@ -21,12 +21,13 @@ final class ShowDashboardAction
     {
         /** @var User $user */
         $cryptoCurrencyList = $this->userCryptoCurrencyManager->getUserCryptoCurrencyList($user);
+        $portfolioValue = $this->userCryptoCurrencyManager->getUserCryptoCurrencyAmount($user);
 
         /** @var User $user */
         return new Response($this->twig->render('dashboard.html.twig',
             [
                 'cryptoCurrencyList' => $cryptoCurrencyList,
-                'user' => $user
+                'portfolioValue' => $portfolioValue
             ]
         ));
     }

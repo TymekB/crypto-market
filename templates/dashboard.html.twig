@@ -8,9 +8,9 @@
             <div class="col-sm-8">
                 <div class="card">
                     <div class="card-body text-center">
-                        <span style="color: gray; text-transform: uppercase; font-weight: 500;">Your portfolio value</span>
+                        <span style="color: gray; text-transform: uppercase; font-weight: 500;">Your cryptocurrencies value</span>
                         <br>
-                        {% set amount = "%.2f"|format(user.amount)|split('.') %}
+                        {% set amount = "%.2f"|format(portfolioValue)|split('.') %}
                         <span style="font-size: 1.875rem; vertical-align: top">$</span>
                         <span style="font-size: 3rem">{{ amount[0] }}</span>
                         <span style="font-size: 1.875rem; vertical-align: top">.{{ amount[1] }}</span>
@@ -36,14 +36,14 @@
                         </thead>
                         <tbody>
                         {% for cryptoCurrency in cryptoCurrencyList %}
+                            {% set priceChange = cryptoCurrency['priceChangePercent'] %}
                             <tr>
                                 <th>{{ loop.index }}</th>
                                 <td>{{ cryptoCurrency['symbol'] }}</td>
                                 <td>{{ cryptoCurrency['quantity'] }}</td>
                                 <td>${{ "%.2f"|format(cryptoCurrency['value'])}}</td>
-                                <td class="danger-color">
-{#                                    -0.5%#}
-                                    {{ "%.2f"|format(cryptoCurrency['priceChangePercent']) }}%
+                                <td class="{{ priceChange > 0 ? 'success-color' : 'danger-color' }}">
+                                    {{ priceChange > 0 ? '+' : '' }}{{ "%.2f"|format(priceChange) }}%
                                 </td>
                             </tr>
                         {% endfor %}
