@@ -1,13 +1,21 @@
 <nav class="navbar navbar-expand-lg">
-    <div class="container">
-        <a class="navbar-brand primary-color" href="#">
+    <div class="container justify-content-center">
+        <a class="navbar-brand primary-color" href="#" style="width: 10rem">
             cryptomarket
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
-            <ul class="nav navbar-nav ms-auto w-100 justify-content-end">
+            <ul class="nav navbar-nav w-100 flex-nowrap">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Dashboard</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Buy/Sell</a>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav">
                 {% if app.user %}
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
