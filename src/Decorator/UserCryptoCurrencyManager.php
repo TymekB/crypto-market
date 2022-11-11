@@ -16,7 +16,6 @@ final class UserCryptoCurrencyManager implements UserCryptoCurrencyManagerInterf
     {
     }
 
-
     public function getUserCryptoCurrencyList(User $user): array
     {
         $symbols = $user->getCryptoCurrencies()->map(function (CryptoCurrency $cryptoCurrency) {
@@ -44,6 +43,16 @@ final class UserCryptoCurrencyManager implements UserCryptoCurrencyManagerInterf
                 'priceChangePercent' => $cryptoCurrencies[$symbol]['priceChangePercent']
             ];
         }, $user->getCryptoCurrencies()->toArray());
+    }
 
+    public function getUserCryptoCurrencyAmount(User $user): float
+    {
+        $userCryptoCurrencyList = $this->getUserCryptoCurrencyList($user);
+
+        $cryptoCurrencyValues = array_map(function($cryptoCurrency) {
+            return $cryptoCurrency['value'];
+        }, $userCryptoCurrencyList);
+
+        return array_sum($cryptoCurrencyValues);
     }
 }
