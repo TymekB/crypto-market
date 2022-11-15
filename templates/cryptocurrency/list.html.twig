@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-sm-2"></div>
+
+            <div class="col-sm-8">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <h2 class="pt-2">Buy/Sell</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-2"></div>
+
+            <div class="col-sm-8 mt-5">
+                <div class="card">
+                    <table class="table table-borderless" style="border: none; margin: 0">
+                        <thead>
+                        <tr>
+                            <th class="text-center">#</th>
+                            <th class="w-50">Name</th>
+                            <th>Price</th>
+                            <th>Change</th>
+                            <th>Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for cryptoCurrency in cryptoCurrencyList %}
+                            {% set priceChange = cryptoCurrency.priceChangePercent %}
+                            <tr>
+                                <th>{{ loop.index }}</th>
+                                <td>{{ cryptoCurrency.symbol }}</td>
+                                <td>${{ "%.2f"|format(cryptoCurrency.lastPrice)}}</td>
+                                <td class="{{ priceChange > 0 ? 'success-color' : 'danger-color' }}">
+                                    {{ priceChange > 0 ? '+' : '' }}{{ "%.2f"|format(priceChange) }}%
+                                </td>
+                                <td>
+                                    <a href="{{ path('buy_cryptocurrency', {'symbol': cryptoCurrency.symbol}) }}" class="btn btn-success btn-sm" style="min-width: 60px;">Buy</a>&nbsp;
+                                    <a href="#" class="btn btn-primary btn-sm" style="min-width: 60px;">Sell</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

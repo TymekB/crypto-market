@@ -31,3 +31,7 @@ reset_password:
 buy_cryptocurrency:
     path: /buy/{symbol}
     controller: App\Controller\Action\CryptoCurrency\BuyCryptoCurrencyAction
+
+cryptocurrency_list:
+    path: /list
+    controller: App\Controller\Action\CryptoCurrency\CryptoCurrencyListAction
