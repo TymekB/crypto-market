@@ -8,9 +8,9 @@
             <div class="col-sm-8">
                 <div class="card">
                     <div class="card-body text-center">
-                        <span style="color: gray; text-transform: uppercase; font-weight: 500;">Your cryptocurrencies value</span>
+                        <span style="color: gray; text-transform: uppercase; font-weight: 500;">Your cryptocurrency wallet</span>
                         <br>
-                        {% set amount = "%.2f"|format(portfolioValue)|split('.') %}
+                        {% set amount = "%.2f"|format(wallet.userBalance)|split('.') %}
                         <span style="font-size: 1.875rem; vertical-align: top">$</span>
                         <span style="font-size: 3rem">{{ amount[0] }}</span>
                         <span style="font-size: 1.875rem; vertical-align: top">.{{ amount[1] }}</span>
@@ -28,25 +28,30 @@
                         <thead>
                             <tr>
                                 <th class="text-center">#</th>
-                                <th class="w-50">Name</th>
+                                <th style="width: 40%">Name</th>
                                 <th>Quantity</th>
                                 <th>Value</th>
                                 <th>Change</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                        {% for cryptoCurrency in cryptoCurrencyList %}
-                            {% set priceChange = cryptoCurrency['priceChangePercent'] %}
-                            <tr>
-                                <th>{{ loop.index }}</th>
-                                <td>{{ cryptoCurrency['symbol'] }}</td>
-                                <td>{{ cryptoCurrency['quantity'] }}</td>
-                                <td>${{ "%.2f"|format(cryptoCurrency['value'])}}</td>
-                                <td class="{{ priceChange > 0 ? 'success-color' : 'danger-color' }}">
-                                    {{ priceChange > 0 ? '+' : '' }}{{ "%.2f"|format(priceChange) }}%
-                                </td>
-                            </tr>
-                        {% endfor %}
+                            {% for asset in wallet.assets %}
+                                {% set priceChange = asset.priceChangePercent %}
+                                <tr>
+                                    <th>{{ loop.index }}</th>
+                                    <td>{{ asset.cryptoCurrency.symbol }}</td>
+                                    <td>{{ asset.quantity }}</td>
+                                    <td>${{ "%.2f"|format(asset.value)}}</td>
+                                    <td class="{{ priceChange > 0 ? 'success-color' : 'danger-color' }}">
+                                        {{ priceChange > 0 ? '+' : '' }}{{ "%.2f"|format(priceChange) }}%
+                                    </td>
+                                    <td>
+                                        <a href="{{ path('buy_cryptocurrency', {'symbol': asset.cryptoCurrency.symbol}) }}" class="btn btn-success btn-sm" style="min-width: 60px;">Buy</a>&nbsp;
+                                        <a href="#" class="btn btn-primary btn-sm" style="min-width: 60px;">Sell</a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
                         </tbody>
                     </table>
                 </div>
