@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Message\CommandHandler;
 
-use App\API\Binance\CryptoCurrencyManagerInterface;
+use App\API\Binance\CryptoCurrency\Manager\CryptoCurrencyManagerInterface;
 use App\Entity\CryptoCurrency;
 use App\Entity\User;
 use App\Message\Command\BuyCryptoCurrencyCommand;
@@ -31,7 +31,7 @@ final class BuyCryptoCurrencyCommandHandler
             ->getRepository(User::class)
             ->find($userId);
 
-        $binanceCryptoCurrency = $this->cryptoCurrencyManager->getCryptoCurrencyBySymbol($symbol);
+        $binanceCryptoCurrency = $this->cryptoCurrencyManager->getCryptoCurrency($symbol);
 
         if($binanceCryptoCurrency->getSymbol() !== $symbol) {
             throw new \Exception();

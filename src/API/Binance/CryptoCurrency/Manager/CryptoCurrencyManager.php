@@ -2,8 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\API\Binance;
+namespace App\API\Binance\CryptoCurrency\Manager;
 
+use App\API\Binance\CryptoCurrency;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Constraints\Currency;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
@@ -20,7 +21,7 @@ final class CryptoCurrencyManager implements CryptoCurrencyManagerInterface
         $this->url = 'https://api.binance.com/api/v3';
     }
 
-    public function getCryptoCurrencyBySymbol(string $symbol): CryptoCurrency
+    public function getCryptoCurrency(string $symbol): CryptoCurrency
     {
         $url = sprintf('%s/ticker/24hr?symbol=%s', $this->url, $symbol);
         $jsonData = $this->client->request('GET', $url)->getContent();
@@ -31,7 +32,7 @@ final class CryptoCurrencyManager implements CryptoCurrencyManagerInterface
     /**
      * @return array|Currency[]
     */
-    public function getCryptoCurrenciesBySymbol(array $symbols = null): array
+    public function getCryptoCurrencies(array $symbols = null): array
     {
         $url = $this->url . '/ticker/24hr';
 

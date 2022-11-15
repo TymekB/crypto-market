@@ -42,7 +42,7 @@ final class BuyCryptoCurrencyAction
         }
 
         $cryptoCurrencyPrice = $this->cryptoCurrencyManager
-            ->getCryptoCurrencyBySymbol($symbol)
+            ->getCryptoCurrency($symbol)
             ->getLastPrice();
 
         return new Response(

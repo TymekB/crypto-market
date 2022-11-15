@@ -12,12 +12,12 @@ final class CryptoCurrencyListAction
 {
     public function __construct(
         private readonly Environment $twig,
-        private readonly CryptoCurrencyManagerInterface $binanceAPI
+        private readonly CryptoCurrencyManagerInterface $cryptoCurrencyManager
     ) {}
 
     public function __invoke(): Response
     {
-        $cryptoCurrencyList = $this->binanceAPI->getCryptoCurrenciesBySymbol([
+        $cryptoCurrencyList = $this->cryptoCurrencyManager->getCryptoCurrencies([
             'BTCUSDT',
             'ETHUSDT',
             'LTCUSDT'
