@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Exception;
+namespace App\Exception\User;
 
 use Symfony\Component\Validator\ConstraintViolationListInterface;
 use Throwable;

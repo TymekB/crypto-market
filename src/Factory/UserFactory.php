@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Factory;
 
 use App\Entity\User;
-use App\Exception\UserNotValidException;
+use App\Exception\User\UserNotValidException;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
