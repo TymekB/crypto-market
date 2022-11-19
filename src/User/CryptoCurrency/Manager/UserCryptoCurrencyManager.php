@@ -7,6 +7,7 @@ namespace App\User\CryptoCurrency\Manager;
 use App\API\Binance\CryptoCurrency\Manager\CryptoCurrencyManagerInterface;
 use App\Entity\CryptoCurrency;
 use App\Entity\User;
+use App\Exception\User\UserDoesNotHaveEnoughBalance;
 use Doctrine\ORM\EntityManagerInterface;
 
 final class UserCryptoCurrencyManager implements UserCryptoCurrencyManagerInterface
@@ -26,7 +27,7 @@ final class UserCryptoCurrencyManager implements UserCryptoCurrencyManagerInterf
         $totalValue = $quantity * $binanceCryptoCurrency->getLastPrice();
 
         if($totalValue > $user->getBalance()) {
-            throw new \Exception();
+            throw new UserDoesNotHaveEnoughBalance();
         }
 
         /** @var CryptoCurrency $cryptoCurrency */
