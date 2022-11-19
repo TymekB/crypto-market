@@ -4,10 +4,9 @@ declare(strict_types=1);
 
 namespace App\Message\CommandHandler;
 
-use App\API\Binance\CryptoCurrency\Manager\CryptoCurrencyManagerInterface;
-use App\Entity\CryptoCurrency;
 use App\Entity\User;
 use App\Message\Command\BuyCryptoCurrencyCommand;
+use App\User\CryptoCurrency\Manager\UserCryptoCurrencyManagerInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
 
@@ -16,7 +15,7 @@ final class BuyCryptoCurrencyCommandHandler
 {
     public function __construct(
         private readonly EntityManagerInterface $entityManager,
-        private readonly CryptoCurrencyManagerInterface $cryptoCurrencyManager
+        private readonly UserCryptoCurrencyManagerInterface $userCryptoCurrencyManager
     )
     {
     }
@@ -31,28 +30,6 @@ final class BuyCryptoCurrencyCommandHandler
             ->getRepository(User::class)
             ->find($userId);
 
-        $binanceCryptoCurrency = $this->cryptoCurrencyManager->getCryptoCurrency($symbol);
-
-        if($binanceCryptoCurrency->getSymbol() !== $symbol) {
-            throw new \Exception();
-        }
-
-        /** @var CryptoCurrency $cryptoCurrency */
-        $cryptoCurrency = $this->entityManager
-            ->getRepository(CryptoCurrency::class)
-            ->findOneBy(['symbol' => $symbol, 'user' => $user]);
-        
-        if(!$cryptoCurrency) {
-            $cryptocurrency = new CryptoCurrency();
-            $cryptocurrency->setUser($user);
-            $cryptocurrency->setSymbol($symbol);
-            $cryptocurrency->setQuantity($quantity);
-
-            $this->entityManager->persist($cryptocurrency);
-        } else {
-            $cryptoCurrency->addQuantity($quantity);
-        }
-
-        $this->entityManager->flush();
+        $this->userCryptoCurrencyManager->buy($user, $symbol, $quantity);
     }
 }
