@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Message\CommandHandler;
 
 use App\Entity\User;
-use App\Exception\UserNotFoundException;
+use App\Exception\User\UserNotFoundException;
 use App\Message\Command\ResetUserPasswordRequestCommand;
 use App\Message\Event\ResetPasswordTokenGeneratedEvent;
 use Doctrine\ORM\EntityManagerInterface;
