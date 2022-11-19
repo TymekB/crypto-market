@@ -21,7 +21,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     private bool $verified = false;
     
-    private float $amount = 0;
+    private float $balance = 0;
 
     private Collection $cryptoCurrencies;
 
@@ -98,14 +98,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->verified;
     }
 
-    public function getAmount(): float
+    public function getBalance(): float
     {
-        return $this->amount;
+        return $this->balance;
     }
 
-    public function setAmount(float $amount): self
+    public function setBalance(float $balance): self
     {
-        $this->amount = $amount;
+        $this->balance = $balance;
 
         return $this;
     }

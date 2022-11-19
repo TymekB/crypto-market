@@ -31,12 +31,13 @@ final class BuyCryptoCurrencyAction
 
     public function __invoke(Request $request, UserInterface $user, string $symbol): Response
     {
+        /** @var User $user */
+
         $form = $this->formFactory->create(CryptoCurrencyFormType::class);
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()) {
             $quantity = $form->get('quantity')->getData();
-            /** @var User $user */
             $userId = $user->getId();
 
             $this->messageBus->dispatch(
@@ -54,6 +55,7 @@ final class BuyCryptoCurrencyAction
             $this->twig->render('cryptocurrency/buy.html.twig', [
                 'symbol' => $symbol,
                 'price' => $cryptoCurrencyPrice,
+                'userAmount' => $user->getBalance(),
                 'form' => $form->createView()
             ])
         );
