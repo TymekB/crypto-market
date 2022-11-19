@@ -12,15 +12,24 @@
                         <h2 class="mt-2">Buy</h2>
                         <p>
                             Cryptocurrency name: {{ symbol }} <br>
-                            Price: $20000
+                            Price: ${{ price|number_format }} <br>
+                            Your balance: ${{ userAmount }}
                         </p>
                         <form method="post" action="{{ path('buy_cryptocurrency', {symbol}) }}">
                             <div>
-                                <crypto-currency-converter crypto-currency-price="{{ price }}"/>
+                                <crypto-currency-converter crypto-currency-price="{{ price }}" max-price="{{ userAmount }}"/>
                             </div>
                             {{ form_row(form._token) }}
-                            <button class="btn btn-success">Buy</button>
+                            <button class="btn btn-success mb-3">Buy</button>
                         </form>
+
+                        {% for label, messages in app.flashes(['success', 'danger']) %}
+                            {% for message in messages %}
+                                <div class="alert alert-{{ label }}">
+                                    {{ message }}
+                                </div>
+                            {% endfor %}
+                        {% endfor %}
                     </div>
                 </div>
             </div>
