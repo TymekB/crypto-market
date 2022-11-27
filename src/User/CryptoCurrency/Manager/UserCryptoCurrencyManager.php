@@ -46,6 +46,8 @@ final class UserCryptoCurrencyManager implements UserCryptoCurrencyManagerInterf
             ->getRepository(CryptoCurrency::class)
             ->findOneBy(['symbol' => $symbol, 'user' => $user]);
 
+        $user->decreaseBalance($totalValue);
+
         if(!$cryptoCurrency) {
             $cryptocurrency = new CryptoCurrency();
             $cryptocurrency->setUser($user);
@@ -54,9 +56,32 @@ final class UserCryptoCurrencyManager implements UserCryptoCurrencyManagerInterf
 
             $this->entityManager->persist($cryptocurrency);
         } else {
-            $cryptoCurrency->addQuantity($quantity);
+            $cryptoCurrency->increaseQuantity($quantity);
         }
 
+        $this->entityManager->flush();
+    }
+
+    public function sell(User $user, string $symbol, float $quantity): void
+    {
+        if($quantity <= 0) {
+            throw new CryptoCurrencyQuantityLessOrEqualZeroException();
+        }
+
+        /** @var CryptoCurrency $cryptoCurrency */
+        $cryptoCurrency = $this->entityManager
+            ->getRepository(CryptoCurrency::class)
+            ->findOneBy(['symbol' => $symbol, 'user' => $user]);
+
+        if($cryptoCurrency->getQuantity() < $quantity) {
+            throw new UserDoesNotHaveEnoughQuantityException();
+        }
+
+        $binanceCryptoCurrency = $this->cryptoCurrencyManager->getCryptoCurrency($symbol);
+        $totalValue = round($quantity * $binanceCryptoCurrency->getLastPrice(), 2);
+
+        $user->increaseBalance($totalValue);
+        $cryptoCurrency->decreaseQuantity($quantity);
         $this->entityManager->flush();
     }
 }
