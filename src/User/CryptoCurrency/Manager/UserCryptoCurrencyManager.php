@@ -30,10 +30,8 @@ final class UserCryptoCurrencyManager implements UserCryptoCurrencyManagerInterf
 
         $binanceCryptoCurrency = $this->cryptoCurrencyManager->getCryptoCurrency($symbol);
 
-        $totalValue = $quantity * $binanceCryptoCurrency->getLastPrice();
-
-        if($totalValue > $user->getBalance()) {
-            throw new UserDoesNotHaveEnoughBalance();
+        if($user->getBalance() < $totalValue) {
+            throw new UserDoesNotHaveEnoughBalanceException();
         }
 
         /** @var CryptoCurrency $cryptoCurrency */
