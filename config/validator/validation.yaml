@@ -16,4 +16,11 @@ App\Entity\User:
         email:
             - Email: ~
 
+App\Dto\BuyCryptoCurrencyDto:
+    properties:
+        quantity:
+            - GreaterThan: 0
+        price:
+            - LessThanOrEqual:
+                propertyPath: userBalance
 
