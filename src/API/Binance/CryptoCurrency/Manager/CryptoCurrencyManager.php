@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\API\Binance\CryptoCurrency\Manager;
 
 use App\API\Binance\CryptoCurrency;
+use App\Exception\CryptoCurrency\CryptoCurrencySymbolNotFoundException;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Constraints\Currency;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
@@ -24,9 +25,15 @@ final class CryptoCurrencyManager implements CryptoCurrencyManagerInterface
     public function getCryptoCurrency(string $symbol): CryptoCurrency
     {
         $url = sprintf('%s/ticker/24hr?symbol=%s', $this->url, $symbol);
-        $jsonData = $this->client->request('GET', $url)->getContent();
+        $response = $this->client->request('GET', $url);
 
-        return $this->serializer->deserialize($jsonData, CryptoCurrency::class, 'json');
+        if($response->getStatusCode() != 200) {
+            throw new CryptoCurrencySymbolNotFoundException();
+        }
+
+        $json = $response->getContent();
+
+        return $this->serializer->deserialize($json, CryptoCurrency::class, 'json');
     }
 
     /**
