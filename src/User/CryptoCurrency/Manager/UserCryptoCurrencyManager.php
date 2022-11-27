@@ -7,14 +7,16 @@ namespace App\User\CryptoCurrency\Manager;
 use App\API\Binance\CryptoCurrency\Manager\CryptoCurrencyManagerInterface;
 use App\Entity\CryptoCurrency;
 use App\Entity\User;
-use App\Exception\User\UserDoesNotHaveEnoughBalance;
+use App\Exception\CryptoCurrency\CryptoCurrencyQuantityLessOrEqualZeroException;
+use App\Exception\User\CryptoCurrency\UserDoesNotHaveEnoughBalanceException;
+use App\Exception\User\CryptoCurrency\UserDoesNotHaveEnoughQuantityException;
 use Doctrine\ORM\EntityManagerInterface;
 
 final class UserCryptoCurrencyManager implements UserCryptoCurrencyManagerInterface
 {
     public function __construct(
         private readonly CryptoCurrencyManagerInterface $cryptoCurrencyManager,
-        private readonly EntityManagerInterface $entityManager
+        private readonly EntityManagerInterface $entityManager,
     )
     {
 
@@ -22,6 +24,10 @@ final class UserCryptoCurrencyManager implements UserCryptoCurrencyManagerInterf
 
     public function buy(User $user, string $symbol, float $quantity): void
     {
+        if($quantity <= 0) {
+            throw new CryptoCurrencyQuantityLessOrEqualZeroException();
+        }
+
         $binanceCryptoCurrency = $this->cryptoCurrencyManager->getCryptoCurrency($symbol);
 
         $totalValue = $quantity * $binanceCryptoCurrency->getLastPrice();
