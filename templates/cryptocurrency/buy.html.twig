@@ -5,31 +5,43 @@
 {% block body %}
     <div class="container mt-5">
         <div class="row">
-            <div class="col-lg-4 col-md-3 col-sm-2"></div>
-            <div class="col-lg-4 col-md-6 col-sm-8">
+            <div class="col-md-3 col-sm-2"></div>
+            <div class="col-md-6 col-sm-8">
                 <div class="card">
                     <div class="card-body">
-                        <h2 class="mt-2">Buy</h2>
-                        <p>
-                            Cryptocurrency name: {{ symbol }} <br>
-                            Price: ${{ price|number_format }} <br>
-                            Your balance: ${{ userAmount }}
-                        </p>
-                        <form method="post" action="{{ path('buy_cryptocurrency', {symbol}) }}">
-                            <div>
-                                <crypto-currency-converter crypto-currency-price="{{ price }}" max-price="{{ userAmount }}"/>
-                            </div>
-                            {{ form_row(form._token) }}
-                            <button class="btn btn-success mb-3">Buy</button>
-                        </form>
+                        <h2 class="mt-2 text-center">Buy</h2>
+                        <hr>
+                        <ul class="list-group mt-3 mb-3">
+                            <li class="list-group-item">
+                                <div class="float-start">Symbol</div>
+                                <div class="float-end">{{ symbol }}</div>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="float-start">Price</div>
+                                <div class="float-end">${{ "%.2f"|format(price) }}</div>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="float-start">Your balance</div>
+                                <div class="float-end">${{ "%.2f"|format(balance) }}</div>
+                            </li>
+                        </ul>
 
-                        {% for label, messages in app.flashes(['success', 'danger']) %}
-                            {% for message in messages %}
-                                <div class="alert alert-{{ label }}">
-                                    {{ message }}
+                        <div data-controller="crypto-currency-converter" data-crypto-currency-converter-rate="{{ price }}">
+                            {{ form_start(form, {attr: {novalidate: 'novalidate'}}) }}
+                            <div class="d-flex justify-content-between">
+                                <div style="width: 45%;">{{ form_row(form.quantity) }}</div>
+                                <div style="line-height: 6.5rem;">
+                                    <i class="fa-solid fa-arrow-right-arrow-left"></i>
                                 </div>
-                            {% endfor %}
-                        {% endfor %}
+                                <div style="width: 45%;">{{ form_row(form.price) }}</div>
+                            </div>
+
+                            <div class="d-flex justify-content-center">
+                                <button class="btn btn-success mb-3" style="width: 150px;">Buy</button>
+                            </div>
+
+                            {{ form_end(form) }}
+                        </div>
                     </div>
                 </div>
             </div>
