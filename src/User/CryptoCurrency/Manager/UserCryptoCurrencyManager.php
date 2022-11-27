@@ -22,13 +22,20 @@ final class UserCryptoCurrencyManager implements UserCryptoCurrencyManagerInterf
 
     }
 
+    private function countTotalValue(string $symbol, float $quantity): float
+    {
+        $binanceCryptoCurrency = $this->cryptoCurrencyManager->getCryptoCurrency($symbol);
+
+        return round($quantity * $binanceCryptoCurrency->getLastPrice(), 2);
+    }
+
     public function buy(User $user, string $symbol, float $quantity): void
     {
         if($quantity <= 0) {
             throw new CryptoCurrencyQuantityLessOrEqualZeroException();
         }
 
-        $binanceCryptoCurrency = $this->cryptoCurrencyManager->getCryptoCurrency($symbol);
+        $totalValue = $this->countTotalValue($symbol, $quantity);
 
         if($user->getBalance() < $totalValue) {
             throw new UserDoesNotHaveEnoughBalanceException();
