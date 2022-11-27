@@ -103,6 +103,20 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->balance;
     }
 
+    public function increaseBalance(float $value): self
+    {
+        $this->balance += $value;
+
+        return $this;
+    }
+
+    public function decreaseBalance(float $value): self
+    {
+        $this->balance -= $value;
+
+        return $this;
+    }
+
     public function setBalance(float $balance): self
     {
         $this->balance = $balance;
