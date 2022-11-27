@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
-final class CryptoCurrency
+class CryptoCurrency
 {
     private ?string $id = null;
 
@@ -49,8 +49,13 @@ final class CryptoCurrency
         $this->quantity = $quantity;
     }
 
-    public function addQuantity(float $quantity): void
+    public function increaseQuantity(float $value): void
     {
-        $this->quantity += $quantity;
+        $this->quantity += $value;
+    }
+
+    public function decreaseQuantity(float $value): void
+    {
+        $this->quantity -= $value;
     }
 }
