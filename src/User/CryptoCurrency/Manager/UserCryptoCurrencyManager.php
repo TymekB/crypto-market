@@ -77,11 +77,15 @@ final class UserCryptoCurrencyManager implements UserCryptoCurrencyManagerInterf
             throw new UserDoesNotHaveEnoughQuantityException();
         }
 
-        $binanceCryptoCurrency = $this->cryptoCurrencyManager->getCryptoCurrency($symbol);
-        $totalValue = round($quantity * $binanceCryptoCurrency->getLastPrice(), 2);
-
+        $totalValue = $this->countTotalValue($symbol, $quantity);
         $user->increaseBalance($totalValue);
+
         $cryptoCurrency->decreaseQuantity($quantity);
+
+        if($cryptoCurrency->getQuantity() <= 0) {
+            $this->entityManager->remove($cryptoCurrency);
+        }
+
         $this->entityManager->flush();
     }
 }
