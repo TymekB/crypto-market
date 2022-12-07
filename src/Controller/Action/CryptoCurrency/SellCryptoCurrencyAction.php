@@ -8,6 +8,7 @@ use App\API\Binance\CryptoCurrency\Manager\CryptoCurrencyManagerInterface;
 use App\Dto\SellCryptoCurrencyDto;
 use App\Entity\CryptoCurrency;
 use App\Entity\User;
+use App\Exception\User\CryptoCurrency\UserCryptoCurrencyNotFound;
 use App\Form\Type\CryptoCurrencyFormType;
 use App\Message\Command\SellCryptoCurrencyCommand;
 use Doctrine\ORM\EntityManagerInterface;
@@ -36,11 +37,14 @@ final class SellCryptoCurrencyAction
     public function __invoke(Request $request,  $symbol, UserInterface $user)
     {
         /** @var User $user */
-
         /** @var CryptoCurrency $userCryptoCurrency */
         $userCryptoCurrency = $this->entityManager
             ->getRepository(CryptoCurrency::class)
             ->findOneBy(['symbol' => $symbol, 'user' => $user]);
+
+        if(!$userCryptoCurrency) {
+            throw new UserCryptoCurrencyNotFound();
+        }
 
         $sellCryptoCurrencyDto = new SellCryptoCurrencyDto();
         $sellCryptoCurrencyDto->setUserQuantity($userCryptoCurrency->getQuantity());
