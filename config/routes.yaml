@@ -16,7 +16,7 @@ verify_email:
 
 dashboard:
     path: /dashboard
-    controller: App\Controller\Action\ShowDashboardAction
+    controller: App\Controller\Action\DashboardAction
 
 reset_password_request:
     path: /reset-password-request
