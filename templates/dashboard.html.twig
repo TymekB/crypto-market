@@ -49,7 +49,7 @@
                                     </td>
                                     <td>
                                         <a href="{{ path('buy_cryptocurrency', {'symbol': asset.cryptoCurrency.symbol}) }}" class="btn btn-success btn-sm" style="min-width: 60px;">Buy</a>&nbsp;
-                                        <a href="#" class="btn btn-primary btn-sm" style="min-width: 60px;">Sell</a>
+                                        <a href="{{ path('sell_cryptocurrency', {'symbol': asset.cryptoCurrency.symbol}) }}" class="btn btn-primary btn-sm" style="min-width: 60px;">Sell</a>
                                     </td>
                                 </tr>
                             {% endfor %}
