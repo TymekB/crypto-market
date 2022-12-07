@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\EventListener;
 
-use App\Exception\User\UserDoesNotHaveEnoughBalance;
 use App\Exception\User\UserNotFoundException;
 use Symfony\Component\EventDispatcher\Attribute\AsEventListener;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -54,15 +53,6 @@ final class AddFlashMessageOnExceptionEventListener
             $response = new RedirectResponse(
                 $this->router->generate('reset_password_request')
             );
-            $event->setResponse($response);
-        }
-
-        if($exception instanceof UserDoesNotHaveEnoughBalance) {
-            $flashbag->add('danger', $exception->getMessage());
-
-            $previous = $event->getRequest()->headers->get('referer');
-
-            $response = new RedirectResponse($previous);
             $event->setResponse($response);
         }
     }
