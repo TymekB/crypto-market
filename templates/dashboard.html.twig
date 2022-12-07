@@ -10,10 +10,11 @@
                     <div class="card-body text-center">
                         <span style="color: gray; text-transform: uppercase; font-weight: 500;">Your cryptocurrency wallet</span>
                         <br>
-                        {% set amount = "%.2f"|format(wallet.userBalance)|split('.') %}
+                        {% set walletBalance = "%.2f"|format(wallet.userBalance)|split('.') %}
+
                         <span style="font-size: 1.875rem; vertical-align: top">$</span>
-                        <span style="font-size: 3rem">{{ amount[0] }}</span>
-                        <span style="font-size: 1.875rem; vertical-align: top">.{{ amount[1] }}</span>
+                        <span style="font-size: 3rem">{{ walletBalance[0] }}</span>
+                        <span style="font-size: 1.875rem; vertical-align: top">.{{ walletBalance[1] }}</span>
                     </div>
                 </div>
             </div>
