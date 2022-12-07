@@ -32,6 +32,10 @@ buy_cryptocurrency:
     path: /buy/{symbol}
     controller: App\Controller\Action\CryptoCurrency\BuyCryptoCurrencyAction
 
+sell_cryptocurrency:
+    path: /sell/{symbol}
+    controller: App\Controller\Action\CryptoCurrency\SellCryptoCurrencyAction
+
 cryptocurrency_list:
     path: /list
     controller: App\Controller\Action\CryptoCurrency\CryptoCurrencyListAction
