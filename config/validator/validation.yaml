@@ -24,3 +24,8 @@ App\Dto\BuyCryptoCurrencyDto:
             - LessThanOrEqual:
                 propertyPath: userBalance
 
+App\Dto\SellCryptoCurrencyDto:
+    properties:
+        quantity:
+            - LessThanOrEqual:
+                propertyPath: userQuantity
