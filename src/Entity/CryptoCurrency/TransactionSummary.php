@@ -7,7 +7,7 @@ namespace App\Entity\CryptoCurrency;
 use App\Entity\User;
 use App\Enum\TransactionTypeEnum;
 
-class Transaction
+class TransactionSummary
 {
     private ?string $id = null;
 

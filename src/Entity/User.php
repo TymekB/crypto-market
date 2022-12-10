@@ -3,7 +3,7 @@
 namespace App\Entity;
 
 use App\Dto\UserDto;
-use App\Entity\CryptoCurrency\Transaction;
+use App\Entity\CryptoCurrency\TransactionSummary;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -25,11 +25,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     private Collection $cryptoCurrencies;
 
-    private Collection $transactions;
+    private Collection $transactionSummaries;
 
     public function __construct()
     {
-        $this->transactions = new ArrayCollection();
+        $this->transactionSummaries = new ArrayCollection();
     }
 
     public function getId(): ?string
@@ -149,25 +149,25 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getTransactions(): Collection
+    public function getTransactionSummaries(): Collection
     {
-        return $this->transactions;
+        return $this->transactionSummaries;
     }
 
-    public function addTransaction(Transaction $transaction): self
+    public function addTransaction(TransactionSummary $transaction): self
     {
-        if (!$this->transactions->contains($transaction)) {
-            $this->transactions[] = $transaction;
+        if (!$this->transactionSummaries->contains($transaction)) {
+            $this->transactionSummaries[] = $transaction;
             $transaction->setUser($this);
         }
 
         return $this;
     }
 
-    public function removeTransaction(Transaction $transaction): self
+    public function removeTransaction(TransactionSummary $transaction): self
     {
-        if ($this->transactions->contains($transaction)) {
-            $this->transactions->removeElement($transaction);
+        if ($this->transactionSummaries->contains($transaction)) {
+            $this->transactionSummaries->removeElement($transaction);
             if ($transaction->getUser() === $this) {
                 $transaction->setUser(null);
             }

@@ -15,7 +15,7 @@
         <field name="roles" column="roles" type="json"/>
         <field name="verified" column="verified" type="boolean"/>
         <field name="balance" column="balance" type="float"/>
-        <one-to-many field="transactions" target-entity="App\Entity\CryptoCurrency\Transaction" mapped-by="user"/>
+        <one-to-many field="transactionSummaries" target-entity="App\Entity\CryptoCurrency\TransactionSummary" mapped-by="user"/>
         <one-to-many field="cryptoCurrencies" target-entity="App\Entity\CryptoCurrency" mapped-by="user"/>
 
     </entity>
