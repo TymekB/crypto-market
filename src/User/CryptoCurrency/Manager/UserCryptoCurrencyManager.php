@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace App\User\CryptoCurrency\Manager;
 
 use App\API\Binance\CryptoCurrency\Manager\CryptoCurrencyManagerInterface;
+use App\Dto\TransactionSummaryDto;
 use App\Entity\CryptoCurrency;
 use App\Entity\User;
+use App\Enum\TransactionTypeEnum;
 use App\Exception\CryptoCurrency\CryptoCurrencyQuantityLessOrEqualZeroException;
 use App\Exception\User\CryptoCurrency\UserDoesNotHaveEnoughBalanceException;
 use App\Exception\User\CryptoCurrency\UserDoesNotHaveEnoughQuantityException;
@@ -29,7 +31,7 @@ final class UserCryptoCurrencyManager implements UserCryptoCurrencyManagerInterf
         return round($quantity * $binanceCryptoCurrency->getLastPrice(), 2);
     }
 
-    public function buy(User $user, string $symbol, float $quantity): void
+    public function buy(User $user, string $symbol, float $quantity): TransactionSummaryDto
     {
         if($quantity <= 0) {
             throw new CryptoCurrencyQuantityLessOrEqualZeroException();
@@ -60,9 +62,17 @@ final class UserCryptoCurrencyManager implements UserCryptoCurrencyManagerInterf
         }
 
         $this->entityManager->flush();
+
+        return new TransactionSummaryDto(
+            $user,
+            $symbol,
+            $quantity,
+            $totalValue,
+            TransactionTypeEnum::BUY
+        );
     }
 
-    public function sell(User $user, string $symbol, float $quantity): void
+    public function sell(User $user, string $symbol, float $quantity): TransactionSummaryDto
     {
         if($quantity <= 0) {
             throw new CryptoCurrencyQuantityLessOrEqualZeroException();
@@ -87,5 +97,13 @@ final class UserCryptoCurrencyManager implements UserCryptoCurrencyManagerInterf
         }
 
         $this->entityManager->flush();
+
+        return new TransactionSummaryDto(
+            $user,
+            $symbol,
+            $quantity,
+            $totalValue,
+            TransactionTypeEnum::SELL
+        );
     }
 }
