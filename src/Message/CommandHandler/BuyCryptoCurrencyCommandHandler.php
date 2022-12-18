@@ -18,7 +18,7 @@ final class BuyCryptoCurrencyCommandHandler
     public function __construct(
         private readonly EntityManagerInterface $entityManager,
         private readonly UserCryptoCurrencyManagerInterface $userCryptoCurrencyManager,
-        private readonly MessageBusInterface $messageBus
+        private readonly MessageBusInterface $eventBus
     )
     {
     }
@@ -35,7 +35,7 @@ final class BuyCryptoCurrencyCommandHandler
 
         $transactionSummaryDto = $this->userCryptoCurrencyManager->buy($user, $symbol, $quantity);
 
-        $this->messageBus->dispatch(
+        $this->eventBus->dispatch(
             TransactionCompletedEvent::fromTransactionSummaryDto($transactionSummaryDto)
         );
     }
