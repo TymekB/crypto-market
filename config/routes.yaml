@@ -39,3 +39,7 @@ sell_cryptocurrency:
 cryptocurrency_list:
     path: /list
     controller: App\Controller\Action\CryptoCurrency\CryptoCurrencyListAction
+
+cryptocurrency_transaction_history:
+    path: /history
+    controller: App\Controller\Action\CryptoCurrency\TransactionHistoryAction
